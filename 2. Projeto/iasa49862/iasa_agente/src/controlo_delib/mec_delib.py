@@ -23,11 +23,11 @@ class MecDelib:
         # Guarda o modelo do mundo
         self.__modelo_mundo = modelo_mundo
 
-        # Guarda o estado inicial do agente (posição de partida).
-        self.__posicao_inicial     = self.__modelo_mundo.obter_estado()
+        # Guarda o estado inicial do agente (posição da partida).
+        self.__inicio     = self.__modelo_mundo.obter_estado()
 
         # Flag que indica se a posição inicial já foi armazenada.
-        self.__key_guardar_inicio  = True
+        self.__key_inicio  = True
 
 
     # Metodo que executa o processo de deliberação, gerando e selecionando objetivos.
@@ -40,13 +40,13 @@ class MecDelib:
         objectivos = self.__gerar_objectivos()
 
         # Se ainda não foi armazenada a posição inicial: guarda o estado atual como base.
-        if self.__key_guardar_inicio:
+        if self.__key_inicio:
 
             # Desativa a flag para evitar armazenar a posição inicial de novo
-            self.__key_guardar_inicio = False
+            self.__key_inicio = False
 
             # Guarda o estado atual como base.
-            self.__posicao_inicial = self.__modelo_mundo.obter_estado()
+            self.__inicio = self.__modelo_mundo.obter_estado()
 
         # Verifica se a lista de objetivos não está vazia, garantindo que a seleção só ocorra quando houver objetivos válidos.
         if objectivos:
@@ -54,7 +54,7 @@ class MecDelib:
             return self.__selecionar_objectivos(objectivos)
         # Caso contrário, devolve como novo objetivo o estado inicial (posição de partida)
         else:
-            return [self.__posicao_inicial]
+            return [self.__inicio]
 
 
     # Metodo interno que gera uma lista de objetivos com base nos estados do ambiente.
