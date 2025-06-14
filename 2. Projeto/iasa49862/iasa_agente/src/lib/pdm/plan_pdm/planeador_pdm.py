@@ -35,6 +35,9 @@ class PlaneadorPDM(Planeador):
     # - objectivos: Conjunto ou lista de estados objetivo.
     def planear(self, modelo_plan, objectivos):
 
+        # Caso não haja objectivos, retorna
+        if not objectivos: return None
+
         # Cria um modelo PDM adaptado a partir do modelo de planeamento e objetivos, utilizando 'ModeloPDMPlan'
         # para integrar a estrutura de PDM.
         modelo_pdm_plan = ModeloPDMPlan(modelo_plan, objectivos)

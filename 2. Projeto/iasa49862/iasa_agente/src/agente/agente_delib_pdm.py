@@ -57,10 +57,3 @@ class AgenteDelibPDM(Agente):
         # movimento ou interação no ambiente, conforme a política ótima do PDM.
         self._actuar(accao)
 
-
-# Executar simulação
-if __name__ == "__main__":
-
-    agente = AgenteDelibPDM()
-    simulador = Simulador(3, agente, vista_modelo = True)
-    simulador.executar()

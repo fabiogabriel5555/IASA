@@ -20,12 +20,14 @@ class MecDelib:
     # Inicializa uma instância do mecanismo de deliberação com um modelo do mundo.
     def __init__(self, modelo_mundo):
 
+        # Guarda o modelo do mundo
         self.__modelo_mundo = modelo_mundo
 
-        ######################################
-        self.__posicao_inicial  = None
+        # Guarda o estado inicial do agente (posição de partida).
+        self.__posicao_inicial     = self.__modelo_mundo.obter_estado()
+
+        # Flag que indica se a posição inicial já foi armazenada.
         self.__key_guardar_inicio  = True
-        self.__key_mover_inicio    = True
 
 
     # Metodo que executa o processo de deliberação, gerando e selecionando objetivos.
@@ -37,20 +39,22 @@ class MecDelib:
         # Chama o metodo interno `__gerar_objectivos` para criar uma lista de estados associados a alvos no ambiente.
         objectivos = self.__gerar_objectivos()
 
+        # Se ainda não foi armazenada a posição inicial: guarda o estado atual como base.
         if self.__key_guardar_inicio:
+
+            # Desativa a flag para evitar armazenar a posição inicial de novo
             self.__key_guardar_inicio = False
+
+            # Guarda o estado atual como base.
             self.__posicao_inicial = self.__modelo_mundo.obter_estado()
 
         # Verifica se a lista de objetivos não está vazia, garantindo que a seleção só ocorra quando houver objetivos válidos.
         if objectivos:
-            # Chama o metodo interno `__selecionar_objectivos`, passando a lista de objetivos, e retorna a lista ordenada
-            # resultante.
+            # Chama o metodo interno `__selecionar_objectivos`, passando a lista de objetivos, e retorna a lista ordenada resultante.
             return self.__selecionar_objectivos(objectivos)
-        elif self.__key_mover_inicio:
-            self.__key_mover_inicio = False
-            return [self.__posicao_inicial]
+        # Caso contrário, devolve como novo objetivo o estado inicial (posição de partida)
         else:
-            return []
+            return [self.__posicao_inicial]
 
 
     # Metodo interno que gera uma lista de objetivos com base nos estados do ambiente.

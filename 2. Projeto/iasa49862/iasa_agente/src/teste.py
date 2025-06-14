@@ -11,7 +11,7 @@ from sae import Simulador
 if __name__ == "__main__":
 
     # Instancia um agente deliberativo.
-    agente = AgenteDelibPDM()
+    agente = AgenteDelib()
 
     # Instancia um simulador com dimensão 4, o agente deliberativo e visualização do modelo ativada.
     simulador = Simulador(4, agente, vista_modelo=True)

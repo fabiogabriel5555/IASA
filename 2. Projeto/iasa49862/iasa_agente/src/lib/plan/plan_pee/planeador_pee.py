@@ -38,6 +38,9 @@ class PlaneadorPEE(Planeador):
     # - objectivos: Lista de estados objetivo, onde o primeiro é usado como estado final.
     def planear(self, modelo_plan, objectivos):
 
+        # Caso não haja objectivos, retorna
+        if not objectivos: return None
+
         # Seleciona o primeiro estado objetivo da lista como o estado final para o problema de planeamento.
         estado_final = objectivos[0]
 
